@@ -8,3 +8,4 @@ all : $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@rm -rf ${OBJ}

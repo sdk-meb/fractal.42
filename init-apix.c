@@ -1,6 +1,4 @@
-
 #include "apix.h"
-
 
 t_vars drew_(t_vars cc, long (*fun)(int,int ,long))
 {
@@ -23,7 +21,9 @@ t_vars drew_(t_vars cc, long (*fun)(int,int ,long))
 		while(x < cc.width_img)
 		{
 			int pixel = (x + y * cc.width_img) * 4;
-			color = fun(200 - x++, 200 - y, cc.color);
+			double a = map(x, 0 ,cc.width_img, -2, 2);
+			double b = map(y,0, cc.height_img, -2, 2);
+			color = fun(a, b, cc.color);
 			buffer[pixel + 0] = (color);
 			buffer[pixel + 1] = (color >> 8);
 			buffer[pixel + 2] = (color >> 16);
@@ -44,7 +44,7 @@ int mouse_hook(int button,int x,int y,void *param)
 t_vars creat_new()
 {
 	t_vars	cc;
-	cc.width_win = 400 ,cc.height_win = 400;
+	cc.width_win = 1400 ,cc.height_win = 1400;
 	cc.mlx = mlx_init();
 	if (!cc.mlx)
 	{

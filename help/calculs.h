@@ -14,7 +14,7 @@
 
 #include "../apix.h"
 
-int     map(int x, int in_min, int in_max, int out_min, int out_max);
+double     map(int x, int in_min, int in_max, int out_min, int out_max);
 long	mandelbrot(int x, int y, long color);
 
 int     create_trgb(int t, int r, int g, int b);

@@ -31,13 +31,13 @@ long	mandelbrot(double x, double y, long color)
     double y2 = 0;
     w = 0;
 
-while (x2 + y2 <= 4 && f++ < 100)
-{
-    x = x2 - y2 + xx;
-    y = w - x2 - y2 + yy;
-    x2 = x * x;
-    y2 = y * y;
-    w = (x + y) * (x + y);
-}
-	return ((long)map(f,0,100,0,0xffffff));
+    while (x2 + y2 <= 4 && f++ < 100)
+    {
+        x = x2 - y2 + xx;
+        y = w - x2 - y2 + yy;
+        x2 = x * x;
+        y2 = y * y;
+        w = (x + y) * (x + y);
+    }
+	return ((long)map(f,0,100,0,0x000ff0));
 }

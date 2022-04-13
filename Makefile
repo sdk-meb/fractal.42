@@ -1,4 +1,4 @@
-NAME = GUI
+NAME = fractol
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Imlx
 
@@ -8,4 +8,10 @@ all : $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+clean:
 	@rm -rf ${OBJ}
+fclean: clean
+	@rm -rf ${NAME}
+re : fclean all
+
+.PHONY: all re clean fclean

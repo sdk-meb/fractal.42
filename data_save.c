@@ -1,17 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trgb.c                                             :+:      :+:    :+:   */
+/*   data_save.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mes-sadk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/12 10:14:32 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/04/12 10:18:29 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/05/12 12:41:40 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/05/12 12:41:42 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/apix.h"
+#include "include/apix.h"
 
-int	create_trgb(int t, int r, int g, int b)
+t_vars save(t_vars cc)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+    static t_vars cc_save;
+
+    if (cc.mlx)
+        cc_save = cc;
+    return (cc_save);
 }

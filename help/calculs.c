@@ -9,28 +9,57 @@
 /*   Updated: 2022/04/12 10:12:52 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "calculs.h"
+#include "../include/apix.h"
 
-double map(double x, double in_min, double in_max, double out_min, double out_max) {
+double  map(double x, double in_min, double in_max, double out_min, double out_max)
+{
   return ((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
 }
 
-long	mandelbrot(double x, double y, long color)
+t_rng set_range(int hook)
+{
+    static t_rng rn;
+
+    if (hook == 2)
+    {
+		rn.top = -2.10;
+		rn.lowest = 1.57;
+		rn.right = -1.22;
+		rn.left = 1.22;
+    }
+    else if (hook == 4)
+    {
+      rn.top += 0.001;
+		  rn.lowest -= 0.001;
+		  rn.right += 0.001;
+		  rn.left -= 0.001;
+    }
+    else if (hook == 5)
+    { 
+      rn.top -= 0.001;
+		  rn.lowest += 0.001;
+		  rn.right -= 0.001;
+		  rn.left += 0.001;
+    }
+    return (rn);
+}
+
+long	mandelbrot(double x, double y, t_rng rn)
 {
     int f;
     double w;
+    double xx;
+    double yy;
+    double y2;
+    double x2;
 
-    double xx = map(x, 0, 2400, -2.00, 0.47);
-    double yy = map(1300 - y, 0, 1300, -1.12, 1.12);
-
-    if (x == 0 || y == 0)
-        return (color);
+    /* RANGE OF MANDELBROT SET [-2.00, 1,47]<-->[-1.12, 1.12] */
+    xx = map(x, 0, 1400, rn.top, rn.lowest);
+    yy = map(1000 - y, 0, 1000, rn.right, rn.left);
     w = 0;
     f = 0;
-	double x2 = 0;
-    double y2 = 0;
-    w = 0;
-
+	  x2 = 0;
+    y2 = 0;
     while (x2 + y2 <= 4 && f++ < 100)
     {
         x = x2 - y2 + xx;

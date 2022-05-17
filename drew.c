@@ -12,39 +12,29 @@
 
 #include "include/apix.h"
 
-t_vars	drew_(t_vars cc, long (*f)( double, double, t_rng), int hook)
+t_vars	drew_(t_vars cc, long (*f)( double, double, t_vars), int hook)
 {
-	char	*buffer;
-	long	color;
 	uint	x;
 	uint	y;
-	int		image_depth;
-	int		size_line;
-	int		endian;
-	int		pixel;
-	t_rng	rn;
+	long	color;
 
-	rn = set_range(hook);
+	set_range(hook, &cc);
 	y = 0;
-	cc.width_img = cc.width_win;
-	cc.height_img = cc.height_win;
-	buffer = mlx_get_data_addr(cc.img, &image_depth, &size_line, &endian);
-	cc.color = mlx_get_color_value(cc.mlx, 0x006010ff);
-	while (y < cc.height_img)
+	cc.buffer = mlx_get_data_addr(cc.img, &cc.image_depth, &cc.size_line, &cc.endian);
+	while (y < IMG_HEIGHT)
 	{
 		x = 0;
-		while (x < cc.width_img)
+		while (x < IMG_WIDTH)
 		{
-			pixel = (x + y * cc.width_img) * 4;
-			color = f((double)x++, (double)y,rn);
-			buffer[pixel + 0] = (color);
-			buffer[pixel + 1] = (color >> 8);
-			buffer[pixel + 2] = (color >> 16);
-			buffer[pixel + 3] = (color >> 24);
+			cc.pixel = (x + y * IMG_WIDTH) * 4;
+			color =  f((double)x++, (double)y, cc);
+			cc.buffer[cc.pixel + 0] = (color);
+			cc.buffer[cc.pixel + 1] = (color >> 8);
+			cc.buffer[cc.pixel + 2] = (color >> 16);
+			cc.buffer[cc.pixel + 3] = (color >> 24);
 		}
 		y++;
 	}
-	//printf("top-->%f,, low-->%f,, right-->%f,,  left-->%f\n", rn.top, rn.lowest, rn.right, rn.left);
 	mlx_put_image_to_window(cc.mlx, cc.win, cc.img, 0, 0);
 	return (cc);
 }

@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_save.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mes-sadk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 12:41:40 by mes-sadk          #+#    #+#             */
-/*   Updated: 2022/05/12 12:41:42 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/05/14 14:47:23 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/05/14 14:47:25 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "include/apix.h"
 
-t_vars save(t_vars cc)
+int	main(int c, char **name)
 {
-    static t_vars cc_save;
+	practise(check_name(c, name[1]));
 
-    if (cc.mlx)
-        cc_save = cc;
-    return (cc_save);
+	return (0);
 }

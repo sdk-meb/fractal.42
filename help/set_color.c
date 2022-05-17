@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   set_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mes-sadk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 12:16:02 by mes-sadk          #+#    #+#             */
-/*   Updated: 2021/12/20 01:54:04 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/05/17 08:46:24 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/05/17 08:46:26 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "../include/apix.h"
 
-# include "libft.h"
-# include <stdarg.h>
+void	red(void)
+{
+	printf("\033[1;31m");
+}
 
-int		ft_printf(const char *s, ...);
+void	yellow(void)
+{
+	printf("\033[0;33m");
+}
 
-#endif
+void	blue(void)
+{
+	printf("\033[0;34m");
+}
+
+void	purple(void)
+{
+	printf("\033[0;35m");
+}
+
+void	reset(void)
+{
+	printf("\033[0m");
+}

@@ -11,47 +11,41 @@
 /* ************************************************************************** */
 #include "include/apix.h"
 
-t_vars	creat_new(long (*f)( double, double, t_rng))
+t_vars	creat_new(char fract_name)
 {
 	t_vars	cc;
 
 	cc.mlx = mlx_init();
-	cc.width_win = 1400;
-	cc.height_win = 1000;
+	cc.name = fract_name;
+	cc.color = 0x00ffffff;
+	cc.access_mv = 0;
 	if (!cc.mlx)
 	{
 		ft_printf("initialization failed :1");
 		exit (1);
 	}
-	cc.win = mlx_new_window(cc.mlx, cc.width_win , cc.height_win, "FRACTOL");
-	cc.img = mlx_new_image(cc.mlx,cc.width_win, cc.height_win);
+	cc.win = mlx_new_window(cc.mlx, WIN_WIDTH , WIN_HEIGHT, "FRACTOL");
+	cc.img = mlx_new_image(cc.mlx, IMG_WIDTH, IMG_HEIGHT);
 	if (!cc.img || !cc.win)
 	{
 		write(1, "window or image creat deny\n", 27);
 		exit(1);
 	}
-	return (drew_(save(cc), f, 2));
+	return (call_name(cc, 34));
 }
 
-t_vars	practise(int c, char *acronymes)
+void	practise(char acronymes)
 {
 	t_vars  cc;
-	while (c--)
-	{
-		if (acronymes[c] == 'm')
-			cc = creat_new(mandelbrot);
-	}
-	return (cc);
-}
 
-int	main(int c, char **name)
-{
-	t_vars	cc;
+	cc = creat_new(acronymes);
 
-	cc = practise(c, check_name(c, name));
-	mlx_mouse_hook(cc.win, mouse_hook, "mouse");
+	mlx_mouse_hook(cc.win, mouse_hook, &cc);
+	mlx_key_hook(cc.win, key_hook, &cc);
+
+	mlx_hook(cc.win, 6, 0, get_mouse_pos, &cc);
+
 	mlx_loop(cc.mlx);
 	mlx_clear_window(cc.mlx, cc.win);
-	return (mlx_destroy_window(cc.mlx, cc.win));
-	return 0;
+	mlx_destroy_window(cc.mlx, cc.win);
 }

@@ -11,62 +11,111 @@
 /* ************************************************************************** */
 #include "../include/apix.h"
 
-double  map(double x, double in_min, double in_max, double out_min, double out_max)
+void  init_range(t_vars *cc)
 {
-  return ((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min);
+  if (cc->name == 'm')
+  {
+    cc->rn.top = -1.50;
+	  cc->rn.lowest = 1.50;
+	  cc->rn.right = -1.12;
+	  cc->rn.left = 1.12;
+  cc->c.img = 0;
+  cc->c.re = 0;
+  }
+  if (cc->name == 'j')
+  {
+    cc->rn.top = -1.50;
+	  cc->rn.lowest = 1.5;
+	  cc->rn.right = -1.5;
+	  cc->rn.left = 1.5;
+    cc->c.img = 0.11;
+    cc->c.re = -0.75;
+  }
 }
 
-t_rng set_range(int hook)
+void set_range(int hook, t_vars *cc)
 {
-    static t_rng rn;
-
-    if (hook == 2)
-    {
-		rn.top = -2.10;
-		rn.lowest = 1.57;
-		rn.right = -1.22;
-		rn.left = 1.22;
-    }
-    else if (hook == 4)
-    {
-      rn.top += 0.001;
-		  rn.lowest -= 0.001;
-		  rn.right += 0.001;
-		  rn.left -= 0.001;
-    }
-    else if (hook == 5)
-    { 
-      rn.top -= 0.001;
-		  rn.lowest += 0.001;
-		  rn.right -= 0.001;
-		  rn.left += 0.001;
-    }
-    return (rn);
+  if (hook == 34)/* reset range of fractal*/
+    init_range(cc);
+  else if (hook == 123)
+    down_right(&cc->rn.top, &cc->rn.lowest);
+  else if (hook == 124)
+    left_lowest(&cc->rn.top, &cc->rn.lowest);
+  else if (hook == 125)
+      down_right(&cc->rn.left, &cc->rn.right);
+  else if (hook == 126)
+     left_lowest(&cc->rn.left, &cc->rn.right);
+  else if (hook == 4)/* zoom in == range \> */
+  {
+    cc->rn.top /= 0.01;
+		cc->rn.lowest /= 0.01;
+		cc->rn.right /= 0.01;
+	  cc->rn.left /= 0.01;
+  }
+  else if (hook == 5)/* zoom out == range /> */
+  { 
+    cc->rn.top *= 0.01;
+		cc->rn.lowest *= 0.01;
+		cc->rn.right *= 0.01;
+    cc->rn.left *= 0.01;
+  }
 }
 
-long	mandelbrot(double x, double y, t_rng rn)
+long	mandelbrot(double x, double y, t_vars cc)
 {
-    int f;
-    double w;
-    double xx;
-    double yy;
-    double y2;
-    double x2;
+  t_clx z;
+  t_clx zn;
+  int   iter;
 
-    /* RANGE OF MANDELBROT SET [-2.00, 1,47]<-->[-1.12, 1.12] */
-    xx = map(x, 0, 1400, rn.top, rn.lowest);
-    yy = map(1000 - y, 0, 1000, rn.right, rn.left);
-    w = 0;
-    f = 0;
-	  x2 = 0;
-    y2 = 0;
-    while (x2 + y2 <= 4 && f++ < 100)
-    {
-        x = x2 - y2 + xx;
-        y = w - x2 - y2 + yy;
-        x2 = x * x;
-        y2 = y * y;
-        w = (x + y) * (x + y);
-    }
-	return ((long)map(f,0,100,0,0x000ff0));
+  cc.c.re = map(x, 0, WIN_WIDTH, cc.rn.top, cc.rn.lowest);
+  cc.c.img = map(WIN_HEIGHT - y, 0, WIN_HEIGHT, cc.rn.right, cc.rn.left);
+  iter = 0;
+  z.img = 0;
+  z.re = 0;
+	while ((z.re * z.re + z.img * z.img) < 4 && iter++ < MAX_ITER)
+	{
+		zn.re = (z.re * z.re) - (z.img * z.img);
+		zn.img = 2 * z.re * z.img;
+		z.re = zn.re + cc.c.re;
+		z.img = zn.img + cc.c.img;
+	}
+	return (map(iter, 0, 51, 0, cc.color));
+}
+
+long  julia(double x, double y, t_vars cc)
+{
+  t_clx z;
+  t_clx zn;
+  int   iter;
+
+  z.re = map(x, 0, WIN_WIDTH, cc.rn.top, cc.rn.lowest);
+  z.img = map(WIN_HEIGHT - y, 0, WIN_HEIGHT, cc.rn.right, cc.rn.left);
+  iter = 0;
+	while ((z.re * z.re + z.img * z.img) < 4 && iter++ < MAX_ITER)
+	{
+		zn.re = (z.re * z.re) - (z.img * z.img);
+		zn.img = 2 * z.re * z.img;
+		z.re = zn.re + cc.c.re;
+		z.img = zn.img + cc.c.img;
+	}
+	return (map(iter, 0, 51, 0, cc.color));
+}
+
+long  meb(double x, double y, t_vars cc)
+{
+  t_clx z;
+  t_clx zn;
+  int   iter;
+
+  iter = 0;
+  z.img = cc.c.img + map(WIN_HEIGHT - y, 0, WIN_HEIGHT, cc.rn.right, cc.rn.left);
+  z.re = cc.c.re + map(x, 0, WIN_WIDTH, cc.rn.top, cc.rn.lowest);
+	while ((z.re * z.re + z.img * z.img) > 4 && iter++ < MAX_ITER)
+	{
+		z.re = (z.re * z.re) - (z.img * z.img);
+		z.img = 2 * z.re * z.img;
+		zn.re = zn.re + cc.c.re;
+		zn.img = zn.img + cc.c.img;
+	}
+    return (0);
 }

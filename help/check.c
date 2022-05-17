@@ -11,20 +11,15 @@
 /* ************************************************************************** */
 #include "../include/apix.h"
 
-char *check_name(int c, char **name)
+char check_name(int c, char *name)
 {
- 	char *acronyms;
-
-	if (c == 1)
+	if (c != 2)
 		exit(ft_printf("we can't find any fractol set name"));
-	acronyms = malloc(c);
-	acronyms[c - 1] = '\0';
- 	while (--c)
-	{
-		if (!ft_memcmp(name[c], "mandelbrot", 11))
-			acronyms[c - 1] = 'm';
-		else
-			exit(ft_printf("we can't find this fractol set : %s", name[c]));
-	}
-	return (acronyms);
+	if (!ft_memcmp(name, "mandelbrot", 11))
+		return ('m');
+	else if (!ft_memcmp(name, "julia", 6))
+		return ('j');
+	else if (!ft_memcmp(name, "meb", 4))
+		return ('b');
+	exit(ft_printf("we can't find this fractol set : %s", name));
 }

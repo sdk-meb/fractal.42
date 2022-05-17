@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   mouve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mes-sadk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 12:16:02 by mes-sadk          #+#    #+#             */
-/*   Updated: 2021/12/20 01:54:04 by mes-sadk         ###   ########.fr       */
+/*   Created: 2022/05/15 10:03:26 by mes-sadk          #+#    #+#             */
+/*   Updated: 2022/05/15 10:03:28 by mes-sadk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
 
-# include "libft.h"
-# include <stdarg.h>
+#include "../include/apix.h"
 
-int		ft_printf(const char *s, ...);
+void down_right(double *x, double *y)
+{
+    (*y) += 0.01;
+    (*x) += 0.01;
+}
 
-#endif
+void    left_lowest(double *x, double *y)
+{
+    (*y) -= 0.01;
+    (*x) -= 0.01;
+}
+
+void    zoom_in()
+{
+    
+}
+
+void    zoom_out()
+{
+
+}

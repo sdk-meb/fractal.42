@@ -1,12 +1,4 @@
 
-WHITE=\033[0m
-GREEN=\033[32m
-YELLOW=\033[33m
-GRAY=\033[2;37m
-CURSIVE=\033[3m
-RED =\033[0;31m
-BLUE =\033[0;34m
-
 NAME = fractol
 LIBFT= libft.42/libft.a
 prntf= printf.42/libftprintf.a
@@ -15,14 +7,33 @@ CFLAGS = -Wall -Wextra -Werror -Imlx \
  -Ofast -march=native -fno-signed-zeros \
  -fno-trapping-math
 
-OBJ_HLP = help/calculs.o help/trgb.o help/check.o help/math.o help/set_color.o help/mouve.o
+OBJ_HLP = utils/calculs.o utils/check.o utils/move.o
 OBJ_ORG = main.o init-apix.o  drew.o event.o 
 
-all : $(NAME)
+all :  $(NAME)
 
 $(NAME): $(OBJ_ORG) $(OBJ_HLP)
 	$(CC) $(OBJ_HLP) $(OBJ_ORG) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(prntf) $(LIBFT)
-	make clean
+	@echo ""
+	@echo "       "IF YOU ARE NEEDE TO HELP RUN : __MAKE HELP__
+
+help :
+	@echo " You can add one name of your choice of your choice :"
+	@echo "     ↳ mandelbrot  ↳ julia  ↳  meb"
+	@echo ""
+	@echo keyboard shortcut :
+	@echo   "          ⓼ ( ⇕ )"
+	@echo	" ⓸ (<->)      .    ⓺ (>-<)"
+	@echo   "          ⓶ (1/⇳)"
+	@echo ""
+	@echo   " i     = RECOnFIGUReE_SET"
+	@echo	" c     = CHANGE COLORS"
+	@echo	" g     = ZOOM IN  CENTER"
+	@echo	" h     = ZOOM OUT CENTER"
+	@echo ""
+	@echo   "      △      AS USUAL "
+	@echo   "   ◀  ▽  ▷   	↳ FOR MOVE"
+
 
 clean:
 	@rm -rf ${OBJ_ORG} $(OBJ_HLP)

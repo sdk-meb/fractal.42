@@ -19,6 +19,8 @@ t_vars	creat_new(char fract_name)
 	cc.name = fract_name;
 	cc.color = 0x00ffffff;
 	cc.access_mv = 0;
+	cc.y = 0;
+	cc.x = 0;
 	if (!cc.mlx)
 	{
 		ft_printf("initialization failed :1");
@@ -31,7 +33,7 @@ t_vars	creat_new(char fract_name)
 		write(1, "window or image creat deny\n", 27);
 		exit(1);
 	}
-	return (call_name(cc, 34));
+	return (*call_name(&cc, 34));
 }
 
 void	practise(char acronymes)

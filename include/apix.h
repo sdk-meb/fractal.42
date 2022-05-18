@@ -53,7 +53,7 @@ typedef struct	s_vars {
 	
 	double		x;
 	double		y;
-	double w;
+
 	int		image_depth;
 	int		size_line;
 	int		endian;
@@ -79,20 +79,24 @@ int		get_mouse_pos(uint x, uint y, t_vars *cc);
 
 double	map(double x, double in_min, double in_max, double out_min, double out_max);
 
-long	mandelbrot(double x, double y, t_vars cc);
-long	julia(double x, double y, t_vars cc);
-long	meb(double x, double y, t_vars cc);
+long	mandelbrot(double x, double y, t_vars *cc);
+long	julia(double x, double y, t_vars *cc);
+long	meb(double x, double y, t_vars *cc);
 
 char	check_name(int c, char *name);
 
 void	practise(char acronymes);
 void	down_right(double *x, double *y);
 void	left_lowest(double *x, double *y);
+void	zoom_in(t_vars *cc);
+void	zoom_out(t_vars *cc);
+void 	width_correction(double *x, double *y);
+void	heigh_correction(double *x, double *y);
+
 
 void	set_range(int hook, t_vars *cc);
-t_rng	offset(t_rng, int x, int y);
 
-t_vars	drew_(t_vars cc, long (*f)( double, double, t_vars), int hook);
-t_vars call_name(t_vars cc, int hook);
+t_vars	*drew_(t_vars *cc, long (*f)( double, double, t_vars *), int hook);
+t_vars *call_name(t_vars *cc, int hook);
 
 #endif

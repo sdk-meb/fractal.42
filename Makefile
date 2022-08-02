@@ -1,7 +1,7 @@
 
 NAME = fractol
-LIBFT= libft.42/libft.a
-prntf= printf.42/libftprintf.a
+LIBFT= libft.a
+prntf= libftprintf.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Imlx \
  -Ofast -march=native -fno-signed-zeros \

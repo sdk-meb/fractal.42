@@ -13,7 +13,7 @@
 
 void	init_range(t_vars *cc)
 {
-	if (cc->name == 'm' || cc->name == 'b')
+	if (cc->name == 'm')
 	{
 		cc->rn.top = -2.50;
 		cc->rn.lowest = 1.50;
@@ -22,7 +22,7 @@ void	init_range(t_vars *cc)
 		cc->c.img = 0;
 		cc->c.re = 0;
 	}
-	if (cc->name == 'j')
+	if (cc->name == 'j' || cc->name == 'b')
 	{
 		cc->rn.top = -1.50;
 		cc->rn.lowest = 1.5;
@@ -101,7 +101,7 @@ long	julia(double x, double y, t_vars *cc)
 	return ((iter) * (cc->color) / (51));
 }
 
-long	meb(double x, double y, t_vars *cc)
+long	burning_ship(double x, double y, t_vars *cc)
 {
 	t_clx	z;
 	t_clx	zn;
@@ -113,10 +113,10 @@ long	meb(double x, double y, t_vars *cc)
 	iter = 0;
 	z.img = 0;
 	z.re = 0;
-	while ((z.re * z.re + z.img + z.img) < 4 && iter++ < MAX_ITER)
+	while ((z.re * z.re + z.img * z.img) < 4 && iter++ < MAX_ITER)
 	{
-		zn.re = (z.re * z.re) - (z.img * z.img) / sin(z.img * 0.1 + 0.3);
-		zn.img = 2 * z.re * z.img;
+		zn.re = fabs((z.re * z.re)) - fabs((z.img * z.img));
+		zn.img = 2 * fabs(z.re) * fabs(z.img);
 		z.re = zn.re + cc->c.re;
 		z.img = zn.img + cc->c.img;
 	}

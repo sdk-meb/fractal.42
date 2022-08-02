@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror -Imlx \
  -fno-trapping-math
 
 OBJ_HLP = utils/calculs.o utils/check.o utils/move.o
-OBJ_ORG = main.o init-apix.o  drew.o event.o 
+OBJ_ORG = main.o init-apix.o  draw.o event.o 
 
 all :  $(NAME)
 
@@ -19,7 +19,7 @@ $(NAME): $(OBJ_ORG) $(OBJ_HLP)
 
 help :
 	@echo " You can add one name of your choice of your choice :"
-	@echo "     ↳ mandelbrot  ↳ julia  ↳  meb"
+	@echo "     ↳ mandelbrot  ↳ julia  ↳  BurningShip"
 	@echo ""
 	@echo keyboard shortcut :
 	@echo   "          ⓼ ( ⇕ )"

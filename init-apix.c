@@ -44,6 +44,7 @@ void	practise(char acronymes)
 	mlx_mouse_hook(cc.win, mouse_hook, &cc);
 	mlx_key_hook(cc.win, key_hook, &cc);
 	mlx_hook(cc.win, 6, 0, get_mouse_pos, &cc);
+	mlx_hook(cc.win, 17, 0, win_off, &cc);
 	mlx_loop(cc.mlx);
 	mlx_clear_window(cc.mlx, cc.win);
 	mlx_destroy_window(cc.mlx, cc.win);

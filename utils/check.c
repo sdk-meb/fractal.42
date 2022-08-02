@@ -19,7 +19,7 @@ char	check_name(int c, char *name)
 		return ('m');
 	else if (!ft_memcmp(name, "julia", 6))
 		return ('j');
-	else if (!ft_memcmp(name, "meb", 4))
+	else if (!ft_memcmp(name, "burningship", 12))
 		return ('b');
 	exit(ft_printf("\n    we can't find this fractol set : %s", name));
 }
@@ -36,7 +36,7 @@ void	heigh_correction(double *x, double *y)
 	(*x) *= 0.9;
 }
 
-void	win_off(t_vars *cc)
+int	win_off(t_vars *cc)
 {
 	mlx_clear_window(cc->mlx, cc->win);
 	mlx_destroy_window(cc->mlx, cc->win);

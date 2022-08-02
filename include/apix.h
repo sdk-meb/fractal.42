@@ -27,7 +27,7 @@
 # define IMG_WIDTH 1000
 # define IMG_HEIGHT 1000
 
-# define MAX_ITER 50
+# define MAX_ITER 50 
 
 typedef struct s_complexe{
 	double	re;
@@ -75,12 +75,12 @@ int		key_hook(int key_code, t_vars *cc);
 int		create_trgb(int t, int r, int g, int b);
 int		get_mouse_pos(unsigned x, unsigned y, t_vars *cc);
 
-/* double	map(double x, double in_min,
-			 double in_max, double out_min, double out_max); */
+/* double	map(double x, double in_min, 
+	double in_max, double out_min, double out_max); */
 
+long	burning_ship(double x, double y, t_vars *cc);
 long	mandelbrot(double x, double y, t_vars *cc);
 long	julia(double x, double y, t_vars *cc);
-long	meb(double x, double y, t_vars *cc);
 
 char	check_name(int c, char *name);
 
@@ -93,9 +93,9 @@ void	width_correction(double *x, double *y);
 void	heigh_correction(double *x, double *y);
 
 void	set_range(int hook, t_vars *cc);
-void	win_off(t_vars *cc);
+int		win_off(t_vars *cc);
 
-t_vars	*drew_(t_vars *cc, long (*f)( double, double, t_vars *), int hook);
+t_vars	*draw_(t_vars *cc, long (*f)( double, double, t_vars *), int hook);
 t_vars	*call_name(t_vars *cc, int hook);
 
 #endif

@@ -15,20 +15,19 @@
 t_vars	*call_name(t_vars *cc, int hook)
 {
 	if (cc->name == 'm')
-		return (drew_(cc, mandelbrot, hook));
+		return (draw_(cc, mandelbrot, hook));
 	else if (cc->name == 'j')
-		return (drew_(cc, julia, hook));
-	return (drew_(cc, meb, hook));
+		return (draw_(cc, julia, hook));
+	return (draw_(cc, burning_ship, hook));
 }
 
 int	mouse_hook(int button, int x, int y, t_vars *cc)
 {
 	if (button == 1)
 		return (cc->access_mv = abs(cc->access_mv - 1));
-	cc->y = ((x) * (cc->rn.lowest - cc->rn.top)
-			/ (WIN_WIDTH)) + cc->rn.top;
-	cc->x = ((WIN_HEIGHT - y) * (cc->rn.left - cc->rn.top)
-			/ (WIN_HEIGHT)) + cc->rn.top;
+	cc->y = ((x) * (cc->rn.lowest - cc->rn.top) / (IMG_WIDTH)) + cc->rn.top;
+	cc->x = ((IMG_HEIGHT - y) * (cc->rn.left - cc->rn.right)
+			/ (IMG_HEIGHT)) + cc->rn.right;
 	call_name(cc, button);
 	return (1);
 }

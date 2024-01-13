@@ -2,5 +2,5 @@
 	path = libft.42
 	url = https://github.com/sdk-meb/libft.42
 [submodule "printf.42"]
-	path = printf.42
+	path = printf
 	url = git@github.com:sdk-meb/printf.42.git

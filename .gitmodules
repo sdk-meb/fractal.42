@@ -1,5 +1,5 @@
 [submodule "libft.42"]
-	path = libft.42
+	path = libft
 	url = https://github.com/sdk-meb/libft.42
 [submodule "printf.42"]
 	path = printf

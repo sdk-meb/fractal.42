@@ -1,0 +1,7 @@
+# object files
+*.o
+*/*.o
+*/*/*.o
+
+# output file, executable
+fractol

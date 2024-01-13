@@ -7,3 +7,13 @@
 
 # output file, executable
 fractol
+
+# Screen Recording
+Subject/julia_ScreenRecording.mov       
+Subject/mandelbrot_ScreenRecording.mov 
+Subject/burningship_ScreenRecording.mov
+
+# .DS_Store
+.DS_Store
+*/.DS_Store
+**/.DS_Store
